@@ -38,6 +38,21 @@ task :compile_protos do
 
   puts full_command
   system full_command
+
+  annotation_protos = [
+    "../api-common-protos/google/api/*.proto",
+    "../api-common-protos/google/longrunning/*.proto"
+  ]
+
+  command = []
+  command << "grpc_tools_ruby_protoc"
+  command << "--ruby_out=lib"
+  command << "-I ../api-common-protos"
+  command += annotation_protos
+  full_command = command.join " "
+
+  puts full_command
+  system full_command
 end
 
 desc "Remove the compiled protos."
